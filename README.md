@@ -1,4 +1,4 @@
-# The-Bachelor
+# Dogs VS Cats
 
 Our project is on The Bachelor franchise; specifically, information about:
 
