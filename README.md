@@ -1,3 +1,3 @@
-# Dogs VS Cats
+# Out Personal Pet Project
 
 TBD
