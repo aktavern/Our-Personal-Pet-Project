@@ -1,0 +1,26 @@
+.page-header {
+    text-align: center;
+}
+
+#filters {
+    position: flex;
+    text-align: left;
+    background-color: white
+}
+#graph {
+    position: flex;
+    text-align: center;
+    background-color: white
+}
+
+#map {
+    position: flex;
+    text-align: center;
+    background-color: white
+}
+
+#picture {
+    position: flex;
+    text-align: center;
+    background-color: white
+}
