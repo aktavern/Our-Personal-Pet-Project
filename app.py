@@ -77,7 +77,9 @@ def cat_metadata(name):
         Cats.shedding_level,
         Cats.social_needs,
         Cats.stranger_friendly,
-        Cats.vocalisation
+        Cats.vocalisation,
+        Cats.lat,
+        Cats.long
     ]
 
     results = db.session.query(*sel).filter(Cats.name == name).all()
@@ -103,6 +105,8 @@ def cat_metadata(name):
         cat_metadata["social_needs"] = result[15]
         cat_metadata["stranger_friendly"] = result[16]
         cat_metadata["vocalisation"] = result[17]
+        cat_metadata["lat"] = result[18]
+        cat_metadata["long"] = result[19]
     
     print(cat_metadata)
     return jsonify(cat_metadata)
