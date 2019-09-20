@@ -18,5 +18,7 @@ CREATE TABLE cats (
 	shedding_level INTEGER,
 	social_needs INTEGER,
 	stranger_friendly INTEGER, 
-	vocalisation INTEGER
+	vocalisation INTEGER,
+	lat VARCHAR,
+	long VARCHAR
 	);
