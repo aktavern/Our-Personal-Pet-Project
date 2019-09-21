@@ -13,10 +13,11 @@
     background-color: white
 }
 
-#map {
-    position: flex;
-    text-align: center;
-    background-color: white
+#mapid {
+   position: flex;
+   text-align: center;
+   background-color: white;
+   height: 250px;
 }
 
 #picture {
