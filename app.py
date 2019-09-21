@@ -21,7 +21,7 @@ app = Flask(__name__)
 # Database Setup
 #################################################
 
-rds_connection_string = "postgres:<PASSWORD>@localhost:5432/animals"
+rds_connection_string = "postgres:Felicidad!1@localhost:5432/animals"
 engine = create_engine(f'postgresql://{rds_connection_string}')
 app.config["SQLALCHEMY_DATABASE_URI"] = (f'postgresql://{rds_connection_string}')
 db = SQLAlchemy(app)
@@ -79,9 +79,21 @@ def characteristics():
     Cats.long
     ).all()
 
-    return(jsonify(characteristics))
 
-@app.route("/cat/metadata/<name>")
+    results = session.query(Cats.child_friendly, Cats.health_issues).all()
+    
+    child = [result[0] for result in results]
+    health = [result[1] for result in results]
+
+    trace = {
+        "x":health,
+        "y": child,
+        "type":"bar"
+    }
+
+    return jsonify(characteristics)
+
+@app.route("/metadata/<name>")
 def cat_metadata(name):
     """Return the data for a given cat breed."""
 
