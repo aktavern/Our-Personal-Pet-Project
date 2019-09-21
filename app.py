@@ -45,7 +45,7 @@ session = Session(engine)
 def index():
     """Return the homepage."""
     # test_dict = dict(test)
-    return render_template("index.html")
+    return render_template("index_valeria_pet.html")
 
 @app.route("/names")
 def names():
@@ -93,7 +93,7 @@ def characteristics():
 
     return jsonify(characteristics)
 
-@app.route("/metadata/<name>")
+@app.route("/cat/metadata/<name>")
 def cat_metadata(name):
     """Return the data for a given cat breed."""
 
