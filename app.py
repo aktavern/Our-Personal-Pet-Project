@@ -47,6 +47,7 @@ def index():
     # test_dict = dict(test)
     return render_template("index_valeria_pet.html")
 
+
 @app.route("/names")
 def names():
     """Return a list of sample names."""
@@ -58,14 +59,27 @@ def names():
 @app.route("/characteristics")
 def characteristics():
     """return a list of characteristics."""
-    names = session.query(Cats.name).all()
-    affection = session.query(Cats.affection_level).all()
-    child = session.query(Cats.child_friendly).all()
+    characteristics = session.query(Cats.name, Cats.imperial,
+    Cats.affection_level, 
+    Cats.temperament, 
+    Cats.origin,
+    Cats.life_span,
+    Cats.adaptability,
+    Cats.child_friendly,
+    Cats.dog_friendly,
+    Cats.energy_level,
+    Cats.grooming,
+    Cats.health_issues,
+    Cats.intelligence,
+    Cats.shedding_level,
+    Cats.social_needs,
+    Cats.stranger_friendly,
+    Cats.vocalisation,
+    Cats.lat,
+    Cats.long
+    ).all()
 
-    data = [{"name": i, "affection": k,"child": l} for i,k,l in zip(names,affection,child)]
-    
-    
-    return jsonify(data)
+    return jsonify(characteristics)
 
 @app.route("/test")
 def test():
