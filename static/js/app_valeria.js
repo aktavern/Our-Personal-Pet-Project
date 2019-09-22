@@ -3,8 +3,8 @@ function buildMetadata(name) {
     var metadataDiv = d3.select("#sample-metadata");
     metadataDiv.html("");
     Object.entries(name).forEach(([key, value])=>{
-      var row = metadataDiv.append("p");
-      row.text(`${key}: ${value}`);
+      var panel = metadataDiv.append("div");
+      panel.text(`${key}: ${value}`);
 
   })
 })
@@ -22,18 +22,12 @@ function init() {
         .text(sample)
         .property("value", sample);
     });
-
-    // Use the first sample from the list to build the initial plots
-    const firstSample = sampleNames[0];
-    buildCharts(firstSample);
-    buildMetadata(firstSample);
   });
 }
 
 
 function optionChanged(newSample) {
   // Fetch new data each time a new sample is selected
-  buildCharts(newSample);
   buildMetadata(newSample);
 }
 
