@@ -58,40 +58,34 @@ def names():
 @app.route("/characteristics")
 def characteristics():
     """return a list of characteristics."""
-    characteristics = session.query(Cats.name, 
-    Cats.imperial,
-    Cats.affection_level, 
-    Cats.temperament, 
-    Cats.origin,
-    Cats.life_span,
-    Cats.adaptability,
-    Cats.child_friendly,
-    Cats.dog_friendly,
-    Cats.energy_level,
-    Cats.grooming,
-    Cats.health_issues,
-    Cats.intelligence,
-    Cats.shedding_level,
-    Cats.social_needs,
-    Cats.stranger_friendly,
-    Cats.vocalisation,
-    Cats.lat,
-    Cats.long
-    ).all()
+    names = session.query(Cats.name).all()
+    affection = session.query(Cats.affection_level).all()
+    child = session.query(Cats.child_friendly).all()
 
-
-    results = session.query(Cats.child_friendly, Cats.health_issues).all()
+    data = [{"name": i, "affection": k,"child": l} for i,k,l in zip(names,affection,child)]
     
-    child = [result[0] for result in results]
-    health = [result[1] for result in results]
+    
+    return jsonify(data)
 
-    trace = {
-        "x":health,
-        "y": child,
-        "type":"bar"
-    }
+@app.route("/test")
+def test():
+    sel = [
+        Cats.name,
+        Cats.affection_level,
+        Cats.child_friendly
+    ]
 
-    return jsonify(characteristics)
+    results = session.query(*sel).all()
+
+    # create dictionary for each row of metadata
+    test_data = {}
+    for result in results:
+        test_data["name"] = result[0]
+        test_data["affection_level"] = result[1]
+        test_data["child_friendly"] = result[2]
+    
+    print(test_data)
+    return jsonify(test_data)
 
 @app.route("/cat/metadata/<name>")
 def cat_metadata(name):
