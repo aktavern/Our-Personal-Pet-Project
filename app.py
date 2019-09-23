@@ -139,7 +139,6 @@ def cat_metadata(name):
 
 @app.route("/charts")
 def charts():
-
     affection = db.session.query(Cats.affection_level).all()
     child_friendly = db.session.query(Cats.child_friendly).all()
     dog_friendly = db.session.query(Cats.affection_level).all()
