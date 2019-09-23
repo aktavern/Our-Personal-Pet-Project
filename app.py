@@ -81,26 +81,6 @@ def characteristics():
 
     return jsonify(characteristics)
 
-@app.route("/test")
-def test():
-    sel = [
-        Cats.name,
-        Cats.affection_level,
-        Cats.child_friendly
-    ]
-
-    results = session.query(*sel).all()
-
-    # create dictionary for each row of metadata
-    test_data = {}
-    for result in results:
-        test_data["name"] = result[0]
-        test_data["affection_level"] = result[1]
-        test_data["child_friendly"] = result[2]
-    
-    print(test_data)
-    return jsonify(test_data)
-
 @app.route("/cat/metadata/<name>")
 def cat_metadata(name):
     """Return the data for a given cat breed."""
@@ -156,6 +136,20 @@ def cat_metadata(name):
     
     print(cat_metadata)
     return jsonify(cat_metadata)
+
+@app.route("/charts")
+def charts():
+
+    affection = db.session.query(Cats.affection_level).all()
+    child_friendly = db.session.query(Cats.child_friendly).all()
+    dog_friendly = db.session.query(Cats.affection_level).all()
+    energy_level = db.session.query(Cats.child_friendly).all()
+    intelligence = db.session.query(Cats.affection_level).all()
+    social_needs = db.session.query(Cats.child_friendly).all()
+
+    return jsonify(affection, child_friendly,
+    dog_friendly, energy_level,intelligence,social_needs)
+
 
 if __name__ == "__main__":
     app.run()
