@@ -20,8 +20,11 @@ app = Flask(__name__)
 #################################################
 # Database Setup
 #################################################
-
-rds_connection_string = "postgres:Felicidad!1@localhost:5432/animals"
+DB_NAME = os.getenv('DB_NAME')
+DB_HOST = os.getenv('DB_HOST')
+DB_USER = os.getenv('DB_USER')
+DB_PASSWORD = os.getenv('DB_PASSWORD')
+rds_connection_string = f"{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}"
 engine = create_engine(f'postgresql://{rds_connection_string}')
 app.config["SQLALCHEMY_DATABASE_URI"] = (f'postgresql://{rds_connection_string}')
 db = SQLAlchemy(app)
