@@ -139,15 +139,19 @@ def cat_metadata(name):
 
 @app.route("/charts")
 def charts():
-    affection = db.session.query(Cats.affection_level).all()
-    child_friendly = db.session.query(Cats.child_friendly).all()
-    dog_friendly = db.session.query(Cats.affection_level).all()
-    energy_level = db.session.query(Cats.child_friendly).all()
-    intelligence = db.session.query(Cats.affection_level).all()
-    social_needs = db.session.query(Cats.child_friendly).all()
+    name = db.session.query(Cats.name).all()
+    lat = db.session.query(Cats.lat).all()
+    long = db.session.query(Cats.long).all()
 
-    return jsonify(affection, child_friendly,
-    dog_friendly, energy_level,intelligence,social_needs)
+    weight_query = 'select left(imperial_weight, 2) from cats'
+    results = db.session.execute(weight_query)
+    weight = [list(row) for row in results]
+
+    life_query = 'select right(life_span, 2) from cats'
+    life_results = db.session.execute(life_query)
+    life_span = [list(row) for row in life_results]
+
+    return jsonify(name, weight, life_span, lat, long)
 
 
 if __name__ == "__main__":
