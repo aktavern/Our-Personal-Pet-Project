@@ -21,7 +21,7 @@ app = Flask(__name__)
 # Database Setup
 #################################################
 
-rds_connection_string = "postgres:<password>@localhost:5432/Pet_Project"
+rds_connection_string = "postgres:Felicidad!1@localhost:5432/Pet_Project"
 engine = create_engine(f'postgresql://{rds_connection_string}')
 app.config["SQLALCHEMY_DATABASE_URI"] = (
     f'postgresql://{rds_connection_string}')
@@ -145,19 +145,29 @@ def cat_metadata(name):
 @app.route("/charts")
 def charts():
     name = db.session.query(Cats.name).all()
-    lat = db.session.query(Cats.lat).all()
-    long = db.session.query(Cats.long).all()
     latlong = db.session.query(Cats.lat, Cats.long).all()
 
-    weight_query = 'select left(imperial_weight, 2) from cats'
+    weight_query = "select (cast(SPLIT_PART (imperial_weight, '-',1 )as integer) + \
+        cast(SPLIT_part(imperial_weight, '-',2 )as integer ))/2 as avgWeight from cats"
     results = db.session.execute(weight_query)
     weight = [list(row) for row in results]
 
-    life_query = 'select right(life_span, 2) from cats'
+    life_query = "select (cast(SPLIT_PART (life_span, '-',1 )as integer) + \
+        cast(SPLIT_part(life_span, '-',2 )as integer ))/2 as avgLife from cats"
     life_results = db.session.execute(life_query)
     life_span = [list(row) for row in life_results]
 
-    return jsonify(name, weight, life_span, lat, long, latlong)
+    best_query = "select name, sum(adaptability+child_friendly+dog_friendly+affection_level+stranger_friendly+intelligence) as total \
+        from cats group by name order by total desc"
+    best_results = db.session.execute(best_query)
+    best_cats = [list(row) for row in best_results]
+
+    worst_query = "select name, sum(energy_level+grooming+health_issues+shedding_level+social_needs+vocalisation) as total \
+        from cats group by name order by total desc"
+    worst_results = db.session.execute(worst_query)
+    worst_cats = [list(row) for row in worst_results]
+
+    return jsonify(name, weight, life_span, latlong, best_cats, worst_cats)
 
 
 if __name__ == "__main__":
