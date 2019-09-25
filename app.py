@@ -21,15 +21,16 @@ app = Flask(__name__)
 # Database Setup
 #################################################
 
-rds_connection_string = "postgres:Felicidad!1@localhost:5432/animals"
+rds_connection_string = "postgres:<password>@localhost:5432/Pet_Project"
 engine = create_engine(f'postgresql://{rds_connection_string}')
-app.config["SQLALCHEMY_DATABASE_URI"] = (f'postgresql://{rds_connection_string}')
+app.config["SQLALCHEMY_DATABASE_URI"] = (
+    f'postgresql://{rds_connection_string}')
 db = SQLAlchemy(app)
 
 # reflect existing database into a new model
 Base = automap_base()
 # reflect the tables
-Base.prepare(engine,reflect=True)
+Base.prepare(engine, reflect=True)
 
 # save reference to the table
 Cats = Base.classes.cats
@@ -40,6 +41,7 @@ session = Session(engine)
 #################################################
 # Flask Routes
 #################################################
+
 
 @app.route("/")
 def index():
@@ -52,34 +54,36 @@ def index():
 def names():
     """Return a list of sample names."""
     stmt = db.session.query(Cats).statement
-    df = pd.read_sql_query(stmt,db.session.bind)
+    df = pd.read_sql_query(stmt, db.session.bind)
 
     return(jsonify(list(df['name'])))
+
 
 @app.route("/characteristics")
 def characteristics():
     """return a list of characteristics."""
     characteristics = session.query(Cats.name, Cats.imperial,
-    Cats.affection_level, 
-    Cats.temperament, 
-    Cats.origin,
-    Cats.life_span,
-    Cats.adaptability,
-    Cats.child_friendly,
-    Cats.dog_friendly,
-    Cats.energy_level,
-    Cats.grooming,
-    Cats.health_issues,
-    Cats.intelligence,
-    Cats.shedding_level,
-    Cats.social_needs,
-    Cats.stranger_friendly,
-    Cats.vocalisation,
-    Cats.lat,
-    Cats.long
-    ).all()
+                                    Cats.affection_level,
+                                    Cats.temperament,
+                                    Cats.origin,
+                                    Cats.life_span,
+                                    Cats.adaptability,
+                                    Cats.child_friendly,
+                                    Cats.dog_friendly,
+                                    Cats.energy_level,
+                                    Cats.grooming,
+                                    Cats.health_issues,
+                                    Cats.intelligence,
+                                    Cats.shedding_level,
+                                    Cats.social_needs,
+                                    Cats.stranger_friendly,
+                                    Cats.vocalisation,
+                                    Cats.lat,
+                                    Cats.long
+                                    ).all()
 
     return jsonify(characteristics)
+
 
 @app.route("/cat/metadata/<name>")
 def cat_metadata(name):
@@ -133,15 +137,17 @@ def cat_metadata(name):
         cat_metadata["vocalisation"] = result[17]
         cat_metadata["lat"] = result[18]
         cat_metadata["long"] = result[19]
-    
+
     print(cat_metadata)
     return jsonify(cat_metadata)
+
 
 @app.route("/charts")
 def charts():
     name = db.session.query(Cats.name).all()
     lat = db.session.query(Cats.lat).all()
     long = db.session.query(Cats.long).all()
+    latlong = db.session.query(Cats.lat, Cats.long).all()
 
     weight_query = 'select left(imperial_weight, 2) from cats'
     results = db.session.execute(weight_query)
@@ -151,7 +157,7 @@ def charts():
     life_results = db.session.execute(life_query)
     life_span = [list(row) for row in life_results]
 
-    return jsonify(name, weight, life_span, lat, long)
+    return jsonify(name, weight, life_span, lat, long, latlong)
 
 
 if __name__ == "__main__":

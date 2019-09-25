@@ -1,5 +1,5 @@
 function buildMetadata(name) {
-  d3.json(`/cat/metadata/${name}`).then(function(name){
+  d3.json(`/metadata/${name}`).then(function(name){
     var metadataDiv = d3.select("#sample-metadata");
     metadataDiv.html("");
     Object.entries(name).forEach(([key, value])=>{
