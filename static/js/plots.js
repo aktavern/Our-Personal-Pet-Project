@@ -5,22 +5,27 @@ function buildPlots() {
         var names = [].concat.apply([],data[0]);
         var weight = [].concat.apply([],data[1]);
         var life_span = [].concat.apply([],data[2]);
-        var lat = [].concat.apply([],data[3])
-        var long = [].concat.apply([],data[4])
-        var colors = x;
-        var size = y;
+
+        var bubbleLayout = {
+            margin: { t: 0},
+            hovermode: "closest",
+            xaxis: { title: "Weight"},
+            yaxis: { title: "Life Span"},
+            title: { title: "Test"}
+        };
 
         var trace = [{
-            x: x,
-            y: y,
-            labels: labels,
+            x: weight,
+            y: life_span,
+            text: names,
             mode: 'markers',
             marker: {
-                colors: colors,
-                size: size
+                colors: weight,
+                size: life_span,
+                colorscale: "Earth"
             }
         }];
-        Plotly.newPlot('plot',trace);
+        Plotly.newPlot('plot',trace, bubbleLayout);
     })
 }
 buildPlots();

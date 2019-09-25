@@ -56,30 +56,31 @@ def names():
 
     return(jsonify(list(df['name'])))
 
-@app.route("/characteristics")
-def characteristics():
-    """return a list of characteristics."""
-    characteristics = session.query(Cats.name, Cats.imperial,
-    Cats.affection_level, 
-    Cats.temperament, 
-    Cats.origin,
-    Cats.life_span,
-    Cats.adaptability,
-    Cats.child_friendly,
-    Cats.dog_friendly,
-    Cats.energy_level,
-    Cats.grooming,
-    Cats.health_issues,
-    Cats.intelligence,
-    Cats.shedding_level,
-    Cats.social_needs,
-    Cats.stranger_friendly,
-    Cats.vocalisation,
-    Cats.lat,
-    Cats.long
-    ).all()
+# @app.route("/characteristics")
+# def characteristics():
+#     """return a list of characteristics."""
+#     characteristics = session.query(Cats.name, 
+#     Cats.imperial_weight,
+#     Cats.affection_level, 
+#     Cats.temperament, 
+#     Cats.origin_y,
+#     Cats.life_span,
+#     Cats.adaptability,
+#     Cats.child_friendly,
+#     Cats.dog_friendly,
+#     Cats.energy_level,
+#     Cats.grooming,
+#     Cats.health_issues,
+#     Cats.intelligence,
+#     Cats.shedding_level,
+#     Cats.social_needs,
+#     Cats.stranger_friendly,
+#     Cats.vocalisation,
+#     Cats.lat,
+#     Cats.long
+#     ).all()
 
-    return jsonify(characteristics)
+#     return jsonify(characteristics)
 
 @app.route("/cat/metadata/<name>")
 def cat_metadata(name):
@@ -87,10 +88,10 @@ def cat_metadata(name):
 
     sel = [
         Cats.name,
-        Cats.imperial,
+        Cats.imperial_weight,
         Cats.affection_level,
         Cats.temperament,
-        Cats.origin,
+        Cats.origin_y,
         Cats.description,
         Cats.life_span,
         Cats.adaptability,
