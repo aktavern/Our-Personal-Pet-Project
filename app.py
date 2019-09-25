@@ -144,11 +144,13 @@ def charts():
     lat = db.session.query(Cats.lat).all()
     long = db.session.query(Cats.long).all()
 
-    weight_query = 'select left(imperial_weight, 2) from cats'
+    weight_query = "select (cast(SPLIT_PART (imperial_weight, '-',1 )as integer) + \
+        cast(SPLIT_part(imperial_weight, '-',2 )as integer ))/2 as avgWeight from cats"
     results = db.session.execute(weight_query)
     weight = [list(row) for row in results]
 
-    life_query = 'select right(life_span, 2) from cats'
+    life_query = "select (cast(SPLIT_PART (life_span, '-',1 )as integer) + \
+        cast(SPLIT_part(life_span, '-',2 )as integer ))/2 as avgLife from cats"
     life_results = db.session.execute(life_query)
     life_span = [list(row) for row in life_results]
 
