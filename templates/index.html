@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Pets</title>
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <!-- Our CSS -->
+  <link rel="stylesheet" type="text/css" href="static/css/style.css">
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+    integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+    crossorigin=""></script>
+</head>
+
+<body>
+  <!-- Header -->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <h1 style="font-family: Cambria, Cochin, Georgia, Times, 'Georgia', serif; font-size: 5em; font-weight: bold">A Pet Project</h1>
+        <img src= "/static/css/top_hat_cat.jpg" alt="kitten" style="float:center;width:128px;height:140px;">
+        <p style="font-family: Cambria, Cochin, Georgia, Times, 'Georgia', serif; font-size: 2em">Find your best friend today!</p>
+        <hr>
+      </div>
+    </div>
+  </div>
+
+    <div class="container">
+      <!-- Introduction -->
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Overview</h2>
+          <h4>Core Message</h4>
+          <p>Everyone loves pets because they are great companions, they are cute, and they are awesome overall. However, 
+            as pet owners and lovers, we should also use the data to determine which pet is best for us. Some pet owners 
+            may prefer low-maintence cats, while others enjoy taking care of the more needy cats. The purpose of this project 
+            is to share data on the origins and qualities of cats to help the data-driven pet owner find their match. 
+          </p>
+          <h4>Core Questions</h4>
+          <p>1. What is the country of origin for the most cat breeds? The least? 
+          <br>
+            2. What is the relationship between a breed's average weight
+          and their average life span?
+        <br>
+            3. Which cats display the most favorable characteristics?
+          <br>
+            4. Which cats display the least favorable characteristics?
+          <br>
+        </div>
+      </div>
+      <!-- /.row -->
+
+      <hr>
+
+      <!-- Question 1 -->
+      <div class="row">
+        <div class="col-md-7">
+            <div id="mapid"></div>
+            <div id="catlocs"></div>
+        </div>
+        <div class="col-md-5">
+          <h3>Breed Origins</h3>
+          <p>We used Leaflet to plot the origins of all of the cats in our database, and Plotly to plot
+            the frequency each country had a cat originate from. Most cats came from the 
+            United States (42% of cats), United Kingdom (12% of cats), and Thailand (6% of cats). Fewer cats came from
+            Norway, Somalia, China (all 1.5% of cats). <br><br>
+            We found it interesting that the only continent without a native domestic cat species is South America. In addition,
+            there is not a particular connection between the countries with fewer cat origins. 
+            One explanation for why the United States has the largest number of cat breeds 
+            could be due to the pet industry. Pets are bred for specific
+            characteristics and are most frequently done in the United States. 
+          </p>
+        </div>
+      </div>
+      <!-- /.row -->
+
+      <hr>
+
+      <!-- Question 2 -->
+      <div class="row">
+        <div class="col-md-5">
+          <h3>Weight vs. Life Span</h3>
+          <p>We used Plotly and SQLAlchemy to compare the average of a breed's weight versus their average life span. We found that the 
+            Egyptian Mau had the highest average life span of 19 years, while the 
+            Aegean had the lowest average life span of 10 years. The Savannah and Ragdoll
+            had the highest average weight of 16 pounds, while the Singapura had the lowest weight
+            of 6 pounds.<br><br>
+            Overall, the average life span for most cats tends to be about 14 years. The average weight
+            tends to be between 8 to 12 pounds. There does not appear to be a relationship between the 
+            average weight and life span. For example, a higher average weight does not mean that a cat will
+            have a lower average life span and vice versa. 
+          </p>
+        </div>
+        <div class="col-md-7">
+          <div id="plot"></div>
+        </div>
+      </div>
+      <!-- /.row -->
+
+      <hr>
+
+      <!-- Question 3 -->
+      <div class="row">
+        <div class="col-md-7">
+          <div id="plot2"></div>
+        </div>
+        <div class="col-md-5">
+          <h3>Breeds with the Most Favorable Characteristics</h3>
+          <p>We used Plotly and SQLAlchemy to compare the sum of the following characteristics
+            which we categorized as favorable: 
+            <li>Adaptability</li>
+            <li>Child Friendliness</li>
+            <li>Dog Friendliness</li>
+            <li>Affection Level</li>
+            <li>Stranger Friendliness</li>
+            <li>Intelligence</li>
+            Each characteristic is ranked from 1 to 5, 5 being the highest rank in the 
+            category. We charted based on the highest scores across these 6 categories.<br><br>
+            We found that the Kurilian had the highest overall sum of these 
+            characteristics (30). Most cats which followed tied at 29 overall points
+            for favorable characteristics. 
+          </p>
+        </div>
+      </div>
+      <!-- /.row -->
+
+      <hr>
+
+      <!-- Question 4 -->
+      <div class="row">
+        <div class="col-md-5">
+          <h3>Breeds with the Least Favorable Characteristics</h3>
+          <p>We used Plotly and SQLAlchemy to compare the sum of the following characteristics
+              which we categorized as unfavorable: 
+              <li>Energy Level</li>
+              <li>Grooming</li>
+              <li>Health Issues</li>
+              <li>Shedding Level</li>
+              <li>Social Needs</li>
+              <li>Vocalisation</li>
+              Each characteristic is ranked from 1 to 5, 5 being the highest rank in the 
+              category. We charted based on the highest scores across these 6 categories.<br><br>
+              We found that the Cymric and Balinese had the highest overall sum of these 
+              unfavorable Characteristics. Much fewer cats tied in this category, and overall
+              the cats which appeared in this list had a lower overall score than those in the 
+              favorable cat list (24 and below). </p>
+        </div>
+        <div class="col-md-7">
+          <div id="plot3"></div>
+        </div>
+      </div>
+
+      <hr>
+
+      <!-- ./row -->
+
+      <!-- Dropdown -->
+      <p>Use the drop down below to find the characteristics for any breed you want.</p>          
+      <div class="row">
+          <div class="col-md-3">
+            <div class="well">
+              <h5 style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">Select a breed</h5>
+              <i class="fas fa-paw"></i>
+              <select id="selDataset" onchange="optionChanged(this.value)"></select>
+            </div>
+          </div>
+          <div class="col-md-9">
+            
+            <div class="panel panel-primary" style = "border-color:#4f4d4a">
+              <div class="panel-heading" style ="background-color: #85827e;">
+                <h3 class="panel-title" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">Personality and Characteristics</h3>
+              </div>
+              <div id="sample-metadata" class="panel-body"></div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+  <!-- Plotly -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+  <!-- Leaflet JavaScript -->
+  <script src="https://unpkg.com/leaflet@1.0.0-rc.3/dist/leaflet.js"></script>
+  
+  <!-- Our custom javascript -->
+  <script type="text/javascript" src="static/js/config.js"></script>
+  <script type="text/javascript" src="static/js/map.js"></script>
+  <script src="{{ url_for('static', filename='js/logic.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/plots.js') }}"></script>
+  
+
+</body>
+
+</html>
