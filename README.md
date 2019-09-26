@@ -24,4 +24,4 @@ Within the Jupyter notebook, we needed to:
 2. Run the `etl/cats.ipynb` notebook to load our cleaned data to the cats table in the Pet_Project database. 
 3. Update credentials in `app.py` for your local Postgres database.
 4. Within Anaconda Prompt, run app.py.
-5. Explore the data!
+5. Find the puuurrrfect pet!
