@@ -102,6 +102,9 @@ function buildPlots() {
             title: "Most Favorable Cats",
             xaxis: { title: "Sum of Most Favorable Characteristics"},
             yaxis: { title: "Breed"},
+            font: {
+                size:10
+            }
         };
 
         // plot the bar chart
@@ -141,6 +144,9 @@ function buildPlots() {
             title: "Least Favorable Cats",
             xaxis: { title: "Sum of Least Favorable Characteristics"},
             yaxis: { title: "Breed"},
+            font: {
+                size:10
+            }
         };
 
         // plot the bar chart
